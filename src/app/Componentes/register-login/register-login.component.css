@@ -1,0 +1,58 @@
+.register-login-container {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+    border: 2px solid white; 
+    padding-left: 20px;
+    background-image: url('fondoLogin.gif');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.back{
+    position: absolute;
+    top: -60px; 
+    left: 20px; 
+    background-color: #ff0000; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px; 
+}
+
+.menu {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+}
+
+button {
+    margin: 5rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px #888888; 
+    transition: all 0.3s ease; 
+}
+  
+button:first-child {
+    margin-left: 0;
+}
+  
+button:hover {
+    background-color: #c41b1b; 
+}   
+  
+button:active {
+    background-color: #c41b1b; 
+}
+
+  

@@ -1,0 +1,28 @@
+
+<div class="loginContainer">
+
+    <button type="button" (click)="showActiveUsers()" [routerLink]="['../']" routerLinkActive="true" class="back">Back</button>
+
+    <div class="loginForm">
+        
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+
+            <h2 style="color: black; font-weight: lighter; text-decoration: underline;">Login</h2>
+
+            <label>
+                <input type="text" placeholder="username" formControlName="userName" (focus)="clearCartel()">
+            </label>
+
+            <label>
+                <input type="password" placeholder="password" formControlName="password" (focus)="clearCartel()">
+            </label>
+
+            <input type="submit" value="ENVIAR" (click)="submitLogin()">
+
+            <br>
+            <br>
+
+            <b id="errorMsg" style="color: red;"></b>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="header">
+    <div class="logo">
+        
+        <button class="lobby" [routerLink]="['../../']" routerLinkActive="active" style="background-color: black;"><img src="assets/LogoImagen.jpg" alt="Logo pagina"></button>
+        
+    </div>
+    <div class="buttons">
+        <ng-container *ngIf="!isActiveUser; else showProfile">
+            <button [routerLink]="['registerLogin']" routerLinkActive="active" >Registro/Inicio Sesion</button>
+        </ng-container>
+
+        <ng-template #showProfile>
+            <button *ngIf="isSectionsComponent" (click)="openProfile()">Mostrar Perfil</button>
+
+            <img *ngIf="!isSectionsComponent" class="imgProfile" src="assets/teams/100.webp" alt="nba">
+
+            <app-profile *ngIf="isProfileOpen" (closeProfileEvent)="closeProfile()"></app-profile>
+
+        </ng-template>
+    </div>
+</div>

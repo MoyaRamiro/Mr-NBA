@@ -1,0 +1,46 @@
+.cry {
+    top: 55%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 50%;
+
+}
+
+
+h2 {
+    color: white;
+    align-items: center;
+    position: fixed;
+    max-width: 50%;
+    bottom: 2rem;
+}
+
+.msg {
+    color: white;
+    border-color: white;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 85%;
+}
+
+.PageNotFoundContainer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 9rem;
+    position: absolute;
+    border: 2px solid white;
+    padding-left: 20px;
+}
+
+.cartel {
+    display: flex;
+    justify-content: flex-end;
+    height: 50vh;
+    max-width: 95%;
+    margin-bottom: 2rem;
+}

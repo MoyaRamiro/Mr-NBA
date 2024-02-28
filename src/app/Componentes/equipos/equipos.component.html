@@ -1,0 +1,46 @@
+<div class="teamsContainer">
+    <ul>
+        <li>
+            <button class="favorite-button" [routerLink]="['/favourite-list']" routerLinkActive="active">Lista de favoritos</button>
+        </li>
+    </ul>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Buscar equipos..." (input)="filterTeams($event)" (keydown)="handleKeyDown()">
+        <ul id="results-list" class="results-list">
+
+
+            
+        </ul>
+      </div>
+      
+  
+    <ul>
+        <li *ngFor="let team of teamsList" class="team-item">
+            <div class="team-name" (click)="showAtributes(team)" style="cursor: pointer;">
+                <img class="teamLogo" [src]="loadImage(team)" alt="imagen Equipo"> {{ team.full_name }} 
+            </div>
+            <div *ngIf="select==team && atribute">
+
+                <p><strong>Abreviatura:</strong> {{team.abbreviation || "No hay datos"}}</p>
+                <p><strong>Ciudad:</strong> {{team.city || "No hay datos"}}</p>
+                <p><strong>Conferencia:</strong> {{ isNullOrWhitespace(team.conference) ? "No hay datos" : team.conference }}</p>
+                <p><strong>División:</strong> {{team.division || "No hay datos"}}</p>
+                <p><strong>Nombre:</strong> {{team.name || "No hay datos"}}</p>
+            </div>
+            
+            <ng-container *ngIf="searchTeam(team); else notFavoriteImage">
+                <img src="../../../assets/EstrellaBlanca.jpg" alt="Agregar lista de favoritos" class="botonfav" (click)="addRemoveTeamList(team)">
+            </ng-container>
+
+            <ng-template #notFavoriteImage>
+                <img src="../../../assets/EstrellaNegra.jpg" alt="No en lista de favoritos" class="botonfav" (click)="addRemoveTeamList(team)">
+            </ng-template>
+        </li>
+    </ul>
+  
+    
+ 
+    </div>
+
+  

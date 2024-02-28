@@ -1,0 +1,62 @@
+<<div class="playersContainer">
+
+
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Buscar jugadores..." (input)="filterPlayers($event)">
+    <ul id="results-list" class="results-list"></ul>
+  </div>
+
+
+  <ul class="favorite-list-container">
+    <li>
+      <button class="favorite-button" [routerLink]="['/favourite-list-pla']" routerLinkActive="active">Lista de favoritos</button>
+    </li>
+  </ul>
+
+
+  <ul>
+    <li *ngFor="let player of playersList" class="player-item">
+   
+      <ng-container *ngIf="isKnownPlayer(player)">
+        <img class="PlayerLogo" [src]="getPlayerImage(player)" alt="Imagen de jugador" (click)="showAtributes(player)" style="cursor: pointer;">
+      </ng-container>
+      <ng-container *ngIf="!isKnownPlayer(player)">
+        <img src="../../../assets/players/ImagenJugadoresGene.webp" alt="Imagen genérica" class="PlayerLogo" (click)="showAtributes(player)" style="cursor: pointer;">
+      </ng-container>
+
+
+      <div class="player-name" (click)="showAtributes(player)" style="cursor: pointer;">
+        {{ player.first_name + ' ' + player.last_name }}
+      </div>
+
+     
+      <div *ngIf="select == player && atribute">
+        <h3>Detalles del jugador</h3>
+        <p><strong>Posición:</strong> {{ player.position || "No hay datos" }}</p>
+        <p><strong>Altura:</strong> {{ player.height || "No hay datos" }}</p>
+        <p><strong>Peso:</strong> {{ player.weight || "No hay datos" }}</p>
+      
+      </div>
+      <button type="button" id="teamNav" (click)="goToTeam(player.team.id)">
+        <strong>Equipo:</strong> {{ player.team.full_name || "------------------"}}
+      </button>
+
+    
+      <ng-container *ngIf="searchPlayer(player); else notFavoriteImage">
+        <img src="../../../assets/EstrellaBlanca.jpg" alt="Agregar lista de favoritos" class="botonfav" (click)="addRemovePlayerList(player)">
+      </ng-container>
+      <ng-template #notFavoriteImage>
+        <img src="../../../assets/EstrellaNegra.jpg" alt="No en lista de favoritos" class="botonfav" (click)="addRemovePlayerList(player)">
+      </ng-template>
+    </li>
+  </ul>
+
+ 
+  <div class="backNextContainer">
+    <button class="back" (click)="previousPage()" [disabled]="isFirstPage"> Back</button>
+    <button class="next" (click)="nextPage()" [disabled]="isLastPage" >Next</button>
+  </div>
+
+ 
+  <p class="page" style="color: white;">{{ currentPage }}</p>
+</div>

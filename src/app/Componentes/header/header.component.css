@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid white;
+  background-image: url('HEADERFONDO.webp');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  height: 100px; 
+  border: solid white 2px;
+  }
+  
+  .imgProfile{
+    position: absolute;
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    top: 10px; 
+    right: 10px;
+    max-width: 10%;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .logo img {
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+  }
+  
+  .buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px #888888; 
+    transition: all 0.3s ease; 
+  }
+  
+  .buttons button:first-child {
+    margin-left: 0;
+  }
+  
+  .buttons button:hover {
+    background-color: #45a049; 
+  }
+  
+  .buttons button:active {
+    background-color: #3e8e41; 
+  }
+
+  
+  

@@ -1,0 +1,47 @@
+<div class="resultsContainer">
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Buscar partidos..." (input)="filterResults($event)">
+
+        <button type="submit" (click)="submitResults()">BUSCAR</button>
+
+    
+    </div>
+
+
+    <ul>
+        <li *ngFor="let game of GamesList" class="game-item">
+            <div class="game-name" (click)="showAtributes(game)" style="cursor: pointer;">
+
+
+                <button type="button" class="teamNav" (click)="goToTeam(game.home_team.id)">
+                    <img class="teamLogo" [src]="loadImage(game.home_team.id)" alt="imagen Equipo">
+                </button>
+
+                {{ game.home_team.full_name + ' ' + ' ' + displayScore(game.home_team_score, game.visitor_team_score) + ' ' + ' ' + game.visitor_team.full_name }}
+
+                <button type="button" class="teamNav" (click)="goToTeam(game.visitor_team.id)">
+                    <img style="margin-left: 2rem;" class="teamLogo" [src]="loadImage(game.visitor_team.id)"
+                        alt="imagen Equipo">
+                </button>
+
+
+            </div>
+            <div *ngIf="select==game && atribute">
+
+                <p><strong>Fecha:</strong> {{game.date | date: 'yyyy-MM-dd' || "No hay datos"}}</p>
+                <p><strong>Temporada:</strong> {{game.season|| "No hay datos"}}</p>
+
+
+
+            </div>
+        </li>
+    </ul>
+
+    <div class="backNextContainer">
+        <button class="back" (click)="previousPage()" [disabled]="isFirstPage">Back</button>
+        <button class="next" (click)="nextPage()" [disabled]="isLastPage">Next</button>
+        <p class="page" style="color: white;">{{count}}</p>
+      </div>
+      
+</div>
