@@ -1,0 +1,228 @@
+.playersContainer { 
+   
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 9rem;
+        position: absolute;
+        border: 2px solid white; 
+        padding-left: 20px;
+        overflow: scroll;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+       justify-content: space-between;
+        
+    
+}
+
+
+
+
+.page {
+  margin-left: 2rem;
+}
+
+.searchPage{
+  margin-left: 40rem;
+  padding: 10px 20px;
+  background-color: rgba(44, 44, 44, 0.418);
+  color: white;
+  border: white;
+  border-radius: 0px;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px #888888; 
+  transition: all 0.3s ease; 
+}
+
+
+
+
+
+.player-item {
+    list-style: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+  }
+  .player-item2 {
+    list-style: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800;
+    color: white;
+  }
+  
+    .player-name {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    
+    .player-item div {
+      color: white; 
+    }
+    
+    .botonfav {
+  
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+        
+    }
+
+    .favorite-list-container {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+    }
+
+    
+
+    .favorite-button {
+      background-color: #000; 
+      color: #fff; 
+      border: 1px solid white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px;
+    }
+
+
+    .favorite-button:hover {
+      background-color: #fff; 
+      color: #000; 
+      transition: 0.3s;
+    }
+
+    .back{
+      background-color: #000; 
+      color: #fff; 
+      border: 1px solid white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px;
+    }
+
+    .back:hover {
+      background-color: #fff; 
+      color: #000; 
+      transition: 0.3s;
+    }
+
+    .next{
+      background-color: #000; 
+      color: #fff; 
+      border: 1px solid white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-left: 1125px;
+
+    }
+    
+    .next:hover {
+      background-color: #fff; 
+      color: #000; 
+      transition: 0.3s;
+    }
+
+    .PlayerLogo {
+      max-width: 10%;
+      height: auto;
+      display: flexbox;
+      margin-right: 2rem;
+    }
+  
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      position: relative;
+      flex-direction: column;
+      align-items: flex-start;
+    
+    }
+    
+    #search-input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .results-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #teamNav {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+      padding: 8px 13px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+    }
+    
+    #teamNav:hover {
+      background-color: #000;
+      color: #fff;
+      transition: 0.3s;
+    }
+    
+    .results-list li {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: -1px;
+      background-color: black;
+    }
+
+     
+    .backNextContainer button:disabled {
+      background-color: #ccc; 
+      color: #666; 
+      border-color: #ccc; 
+      cursor: not-allowed; 
+    }
+    
+  
+    .backNextContainer button:disabled:hover {
+      background-color: #ccc;
+      color: #666;
+    }
+    
+  

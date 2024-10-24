@@ -1,0 +1,73 @@
+<div class="registerContainer">
+    <button type="button" [routerLink]="['../']" routerLinkActive="true" class="back">Back</button>
+    <div class="registerForm">
+        <form novalidate [formGroup]="registerForm" (ngSubmit)="registerForm.valid && sendForm()">
+
+            <h2 style="color: black; font-weight: lighter; text-decoration: underline;">Register</h2>
+            <br>
+            <label>
+                <span>UserName</span>
+                <input type="text" placeholder="..........................." formControlName="userName">
+            </label>
+            <div *ngIf="registerForm.get('userName')?.touched && registerForm.get('userName')?.hasError('required')"
+                style="color: red;">Campo requerido.</div>
+            <br>
+
+            <label>
+                <span>Email</span>
+                <input type="text" placeholder="..........................." formControlName="email">
+            </label>
+            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required')"
+                style="color: red;">Campo requerido.</div>
+            <br>
+            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('pattern')"
+                style="color: red;">El email debe ser del formato: "nombreDeUsuario@dominio.sufijo"</div>
+            <br>
+
+            <label>
+                <span>Dni</span>
+                <input type="text" placeholder="..........................." formControlName="dni">
+            </label>
+
+            <div *ngIf="registerForm.get('dni')?.touched && registerForm.get('dni')?.hasError('required')"
+                style="color: red;">Campo requerido.</div>
+            <br>
+            <div *ngIf="registerForm.get('dni')?.touched && registerForm.get('dni')?.hasError('minlength')"
+                style="color: red;">Minimo 8 numeros.</div>
+            <br>
+            <div *ngIf="registerForm.get('dni')?.touched && registerForm.get('dni')?.hasError('pattern')"
+                style="color: red;">Solo numeros</div>
+            <br>
+
+            <label>
+                <span>Password</span>
+                <input type="password" placeholder="..........................." formControlName="password">
+            </label>
+
+            <div style="color: red;"
+                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')">La
+                contraseña es requerida.</div>
+            <div style="color: red;"
+                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">La
+                contraseña debe incluir letras mayúsculas, letras minúsculas, al menos un número y al menos un carácter
+                especial.</div>
+            <div style="color: red;"
+                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minlength')">
+                Mínimo 10 caracteres.</div>
+            <br>
+            <br>
+
+
+            <input type="submit" value="ENVIAR" [disabled]="!registerForm.valid">
+            <br>
+            <br>
+            <div *ngIf="registerForm.touched && registerForm.valid" style="color: green;">Formulario válido.</div>
+            <div *ngIf="registerForm.touched && !registerForm.valid" style="color: red;">Completa los requisitos para
+                enviar.</div>
+                <br>
+                <br>
+            <p style="color: red;" class="userExists"></p>
+
+        </form>
+    </div>
+</div>
