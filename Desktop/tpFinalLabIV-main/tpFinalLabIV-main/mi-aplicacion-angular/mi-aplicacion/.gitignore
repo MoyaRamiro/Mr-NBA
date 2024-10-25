@@ -40,3 +40,23 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Ignorar archivos del sistema de Windows
+*.lnk
+*.exe
+AppData/
+Contacts/
+Desktop/
+Documents/
+Downloads/
+Favorites/
+NTUSER.DAT*
+OneDrive/
+Pictures/
+Saved Games/
+Searches/
+Videos/
+ntuser.dat.LOG1
+ntuser.dat.LOG2
+ntuser.ini
