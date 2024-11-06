@@ -1,0 +1,38 @@
+<div class="favListPlayerContainer" style="color: white;">
+  <ul>
+    <li *ngFor="let favoritePlayer of favoriteList" class="favplayer-item">
+      <div class="favplayer-name" (click)="showAtributes(favoritePlayer)" style="cursor: pointer;">
+        <ng-container *ngIf="isKnownPlayer(favoritePlayer)">
+          <img class="PlayerLogoFav" [src]="getPlayerImage(favoritePlayer)" alt="Imagen de jugador">
+        </ng-container>
+        <ng-container *ngIf="!isKnownPlayer(favoritePlayer)">
+          <img src="../../../assets/players/ImagenJugadoresGene.webp" alt="Imagen genérica" class="PlayerLogoFav">
+        </ng-container>
+        {{ favoritePlayer.first_name + ' ' + favoritePlayer.last_name }}
+      </div>
+
+      <div *ngIf="select == favoritePlayer && atribute">
+        <ng-template #noData></ng-template>
+        <p><strong>Posición:</strong> {{ favoritePlayer.position || "No hay datos"}} </p>
+        <p><strong>Altura:</strong> {{ favoritePlayer.height || "No hay datos"}} </p>
+        <p><strong>Peso:</strong> {{ favoritePlayer.weight  || "No hay datos"}} </p>
+        <p><strong>Número de camiseta:</strong> {{ favoritePlayer.jersey_number || "No hay datos" }}</p>
+        <p><strong>Universidad:</strong> {{ favoritePlayer.college || "No hay datos" }}</p>
+        <p><strong>País:</strong> {{ favoritePlayer.country || "No hay datos" }}</p>
+        <p><strong>Año de draft:</strong> {{ favoritePlayer.draft_year || "No hay datos" }}</p>
+        <p><strong>Ronda de draft:</strong> {{ favoritePlayer.draft_round || "No hay datos" }}</p>
+        <p><strong>Número de draft:</strong> {{ favoritePlayer.draft_number || "No hay datos" }}</p>
+        <button type="button" id="teamNav" (click)="goToTeam(favoritePlayer.team.id)"><strong>Equipo:</strong> {{ favoritePlayer.team.full_name || "------------------"}}</button>
+      </div>
+
+      <ng-container *ngIf="searchPlayer(favoritePlayer); else notFavoriteImage">
+        <img src="../../../assets/EstrellaBlanca.jpg" alt="Agregar lista de favoritos" class="favBotonFav" (click)="addRemovePlayerList(favoritePlayer)">
+      </ng-container>
+      <ng-template #notFavoriteImage>
+        <img src="../../../assets/EstrellaNegra.jpg" alt="No en lista de favoritos" class="favBotonFav" (click)="addRemovePlayerList(favoritePlayer)">
+      </ng-template>
+    </li>
+  </ul>
+
+  <p *ngIf="favoriteList.length === 0" style="color: white; font-weight: bold; font-size: 1.5rem;">¡Tu lista de favoritos está vacía!</p>
+</div>

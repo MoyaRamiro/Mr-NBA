@@ -1,0 +1,15 @@
+<div class="profile-overlay" (click)="closeProfile()">
+    <div class="profile-container">
+
+        <h2> Username: {{user.userName}} </h2>
+        <p> UserId: {{user.userId}} </p>
+        <p> Email: {{user.email}} </p>
+        <p> DNI: {{user.dni}} </p>
+        <p> Cant. equipos fav: {{user.teamFavouriteList?.length}} </p>
+        <p> Cant. jugadores fav: {{user.playersFavouriteList?.length}} </p>
+
+        <button (click)="closeSession()">Cerrar Sesion</button>
+
+        <button style="margin-top: 10px;" (click)="closeProfile()">Cerrar</button>
+    </div>
+</div>

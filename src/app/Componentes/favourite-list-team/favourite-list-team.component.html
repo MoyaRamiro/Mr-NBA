@@ -1,0 +1,65 @@
+<div class="favListContainer" style="color: white;">
+  <ul>
+    <li *ngFor="let favoriteTeam of favoriteList" class="favteam-item">
+      <div class="favteam-name" (click)="showAtributesFavTeam(favoriteTeam)" style="cursor: pointer;">
+
+        <img class="teamLogo" [src]="loadImage(favoriteTeam)" alt="imagen Equipo">
+
+        {{favoriteTeam.full_name}}
+      </div>
+      <div *ngIf="select==favoriteTeam && atribute">
+
+        <p><strong>Ciudad:</strong> {{favoriteTeam.city || "No hay datos"}}</p>
+        <p><strong>Conferencia:</strong> {{ isNullOrWhitespace(favoriteTeam.conference) ? "No hay datos" : favoriteTeam.conference }}</p>
+        <p><strong>División:</strong> {{favoriteTeam.division || "No hay datos"}}</p>
+
+
+        <h2>Últimos partidos:</h2>
+        <ul *ngIf="recentResults">
+          <div *ngIf="!resultsLoaded">
+            <p class="loading-message">Cargando resultados<span class="loading-dots"></span></p>
+          </div>
+          <ng-container *ngIf="resultsLoaded && recentResults.length > 0; else noRecentResults">
+            <li *ngFor="let result of recentResults.slice(0, 5)">
+              {{ result.visitor_team.full_name }} {{ result.visitor_team_score }} - {{ result.home_team.full_name }} {{ result.home_team_score }} ({{ result.date | date: 'yyyy-MM-dd' }})
+            </li>
+          </ng-container>
+        </ul>
+       
+        <ng-template #noRecentResults>
+          <p class="loading-message" *ngIf="resultsLoaded">No hay resultados recientes</p>
+        </ng-template>
+        
+
+   <ng-template #loadingPlayers>
+    <p class="loading-message">Cargando jugadores<span class="loading-dots"></span></p>
+   </ng-template>
+
+        <h2>Jugadores:</h2>
+        <ul *ngIf="teamPlayers && teamPlayers.length; else loadingPlayers">
+          <li *ngFor="let player of teamPlayers.slice(-12 )">
+            {{ player.first_name }} {{ player.last_name }}
+          </li>
+        </ul>
+
+        <ng-template #loadingPlayers>
+          <p class="loading-message">Cargando jugadores<span class="loading-dots"></span></p>
+        </ng-template>
+
+      </div>
+      <ng-container *ngIf="searchTeam(favoriteTeam); else notFavoriteImage">
+        <img src="../../../assets/EstrellaBlanca.jpg" alt="Agregar lista de favoritos" class="favTeamBotonFav"
+          (click)="addRemoveTeamList(favoriteTeam)">
+      </ng-container>
+
+      <ng-template #notFavoriteImage>
+        <img src="../../../assets/EstrellaNegra.jpg" alt="No en lista de favoritos" class="favTeamBotonFav"
+          (click)="addRemoveTeamList(favoriteTeam)">
+      </ng-template>
+    </li>
+  </ul>
+
+  <p *ngIf="favoriteList.length === 0" style="color: white; font-weight: bold; font-size: 1.5rem;">Tu lista de favoritos
+    esta vacia!</p>
+
+</div>

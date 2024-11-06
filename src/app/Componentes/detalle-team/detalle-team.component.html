@@ -1,0 +1,18 @@
+<div class="container">
+    <div *ngIf="team">
+        <h2>{{ team.full_name }}<img [src]="loadImage()" alt="imagen Equipo"></h2>
+        <br><br><br>
+        <p>Abreviatura: <span>{{ team.abbreviation }}</span></p>
+        <p>Ciudad: <span>{{ team.city }}</span></p>
+        <p>Conferencia: <span>{{ team.conference }}</span></p>
+        <p>División: <span>{{ team.division }}</span></p>
+        <p>Nombre: <span>{{ team.name }}</span></p>
+        <p>¿Es favorito?: <span>{{ verifyFavourite(team) ? 'Sí' : 'No' }}</span></p>
+    </div>
+    
+    <div *ngIf="!team" class="loading-container">
+        <p class="loading-message">Cargando detalles del equipo...</p>
+    </div>
+</div>
+
+
