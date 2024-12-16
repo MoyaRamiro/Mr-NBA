@@ -7,14 +7,15 @@ import { Player } from 'src/app/types/Players';
 })
 export class PlayersService {
 
-  private readonly apiUrl = 'https://api.balldontlie.io/v1';
+  private readonly apiUrl = 'http://localhost:4000';
   private readonly apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97'; 
 
   constructor(private httpClient: HttpClient) { }
 
   getAllPlayers(page: number) {
-    const url = `${this.apiUrl}/players?cursor=${page}`;
+    const url = `${this.apiUrl}/players?page=${page}`;
 
+    console.log(url)
     return this.httpClient.get<Player[]>(url, { headers: this.getHeaders() });
   }
 
@@ -26,12 +27,6 @@ export class PlayersService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders().set('Authorization', ` ${this.apiKey}`);
-  }
-
-  getSeasonAverages(playerId: number, season: number) {
-    const url = `${this.apiUrl}/season_averages?player_ids[]=${playerId}&season=${season}`;
-
-    return this.httpClient.get(url, { headers: this.getHeaders() });
   }
   
 

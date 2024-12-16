@@ -22,6 +22,7 @@ import { FavouriteListPlayerComponent } from './Componentes/favourite-list-playe
 import { ProfileComponent } from './Componentes/header/profile/profile.component';
 import { DetalleTeamComponent } from './Componentes/detalle-team/detalle-team.component';
 import { FormsModule } from '@angular/forms';
+import { FavouriteListResultComponent } from './Componentes/favourite-list-result/favourite-list-result.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     FavouriteListPlayerComponent,
     ProfileComponent,
     DetalleTeamComponent,
+    FavouriteListResultComponent,
   ],
   imports: [
     BrowserModule,

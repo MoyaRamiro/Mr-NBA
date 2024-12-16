@@ -1,0 +1,110 @@
+<div class="favListResultsContainer" style="color: white">
+  <h1
+    *ngIf="favouriteGames.length === 0"
+    style="color: white; font-weight: bold; font-size: 1.5rem"
+  >
+    ¡Tu lista de favoritos está vacía!
+  </h1>
+  <ul>
+    <li *ngFor="let game of favouriteGames" class="favResult-item">
+      <div class="favResult-name" style="cursor: pointer">
+        <div
+          class="game-name"
+          (click)="showAtributes(game)"
+          style="cursor: pointer"
+        >
+          <ng-container
+            *ngIf="searchTeam(game.home_team.id); else notFavoriteHomeImage"
+          >
+            <img
+              src="../../../assets/EstrellaBlanca.jpg"
+              alt="Agregar lista de favoritos, LOCAL"
+              class="botonfav"
+              (click)="addRemoveTeamList(game.home_team.id)"
+            />
+          </ng-container>
+
+          <ng-template #notFavoriteHomeImage>
+            <img
+              src="../../../assets/EstrellaNegra.jpg"
+              alt="No en lista de favoritos, LOCAL"
+              class="botonfav"
+              (click)="addRemoveTeamList(game.home_team.id)"
+            />
+          </ng-template>
+          <button
+            type="button"
+            class="teamNav"
+            (click)="goToTeam(game.home_team.id)"
+          >
+            <img
+              class="teamLogo"
+              [src]="loadImage(game.home_team.id)"
+              alt="imagen Equipo"
+            />
+          </button>
+
+          {{
+            game.home_team.full_name +
+              " " +
+              " " +
+              displayScore(game.home_team_score, game.visitor_team_score) +
+              " " +
+              " " +
+              game.visitor_team.full_name
+          }}
+
+          <button
+            type="button"
+            class="teamNav"
+            (click)="goToTeam(game.visitor_team.id)"
+          >
+            <img
+              style="margin-left: 2rem"
+              class="teamLogo"
+              [src]="loadImage(game.visitor_team.id)"
+              alt="imagen Equipo"
+            />
+          </button>
+
+          <span class="rightStar">
+            <ng-container
+              *ngIf="searchTeam(game.visitor_team.id); else notFavoriteImageVisitor"
+            >
+              <img
+                src="../../../assets/EstrellaBlanca.jpg"
+                alt="Agregar lista de favoritos, VISITANTE"
+                class="botonfav"
+                (click)="addRemoveTeamList(game.visitor_team.id)"
+              />
+            </ng-container>
+
+            <ng-template #notFavoriteImageVisitor>
+              <img
+                src="../../../assets/EstrellaNegra.jpg"
+                alt="No en lista de favoritos, VISITANTE"
+                class="botonfav"
+                (click)="addRemoveTeamList(game.visitor_team.id)"
+              />
+            </ng-template>
+          </span>
+        </div>
+
+        <div class="matchInfo">
+          <div *ngIf="select == game && atribute">
+            <p><strong>Fecha:</strong> {{ game.date }}</p>
+            <!-- | date: 'yyyy-MM-dd' || "No hay datos" -->
+            <p>
+              <strong>Temporada:</strong> {{ game.season || "No hay datos" }}
+            </p>
+          </div>
+          <p *ngIf="favouriteGames.length === 0">
+            No hay resultados disponibles.
+          </p>
+        </div>
+
+        <!-- (click)="addRemoveTeamList(game.home_team)" -->
+      </div>
+    </li>
+  </ul>
+</div>

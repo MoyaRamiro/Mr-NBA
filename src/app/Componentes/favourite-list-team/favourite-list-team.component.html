@@ -38,7 +38,7 @@
         <h2>Jugadores:</h2>
         <ul *ngIf="teamPlayers && teamPlayers.length; else loadingPlayers">
           <li *ngFor="let player of teamPlayers.slice(-12 )">
-            {{ player.first_name }} {{ player.last_name }}
+            {{ player.first_name }} {{ player.last_name }} - {{ player.position }}
           </li>
         </ul>
 

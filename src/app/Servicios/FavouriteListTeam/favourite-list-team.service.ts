@@ -13,7 +13,7 @@ import { LoginRegisterService } from '../LoginRegister/login-register.service';
 export class FavouriteListService {
 
   private favoriteList: Team[] = [];
-  private apiUrl = 'https://api.balldontlie.io/v1';
+  private apiUrl = 'http://localhost:4000';
   private apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
 
   private headers: HttpHeaders = new HttpHeaders({
@@ -37,14 +37,14 @@ export class FavouriteListService {
   getData(): Team[] {
     const activeUser = this.service.getActiveUser();
     const teamFavouriteList = activeUser.teamFavouriteList;
-    console.log('Datos del usuario activo:', activeUser); 
-    console.log('Lista de equipos favoritos:', teamFavouriteList); 
+    this.favoriteList = teamFavouriteList || [];
     return teamFavouriteList || [];
   }
 
   getTeamById(teamId: number): Team | undefined {
     if (!this.favoriteList || this.favoriteList.length === 0) return undefined;
-    return this.favoriteList.find((team) => team.id === teamId);
+    const team = this.favoriteList.find((team) => team.id === teamId);
+    return team;
   }
 
   private fetchResultsPage(teamId: number, page: number, limit: number): Observable<Game[]> {
@@ -86,7 +86,7 @@ export class FavouriteListService {
   }
 
   getRecentResults(teamId: number, limit: number = 5): Observable<Game[]> {
-    console.log('Obteniendo resultados recientes para el equipo con ID:', teamId); 
+
     if (this.recentResultsCache[teamId]) {
       const cachedResults = this.recentResultsCache[teamId];
       if (this.resultsCacheValid(cachedResults)) {
@@ -94,23 +94,23 @@ export class FavouriteListService {
         return of(cachedResults.slice(0, limit)); 
       }
     }
-
+/*
     console.log('Obteniendo resultados del servidor para el equipo con ID:', teamId); 
     
     const endDate = new Date().toISOString().split('T')[0]; 
     const startDate = new Date(); 
     startDate.setDate(startDate.getDate() - 7); 
     const startDateString = startDate.toISOString().split('T')[0];
-
-    const resultsUrl = `${this.apiUrl}/games?team_ids[]=${teamId}&per_page=${limit}&start_date=${startDateString}&end_date=${endDate}&order=-date`;
+*/
+    const resultsUrl = `${this.apiUrl}/games?id=${teamId}`
   
     return this.http.get<Game[]>(resultsUrl, { headers: this.headers }).pipe( 
-      map((data: any) => {
-        const dataArray = data && data.data ? data.data : [];
+      map((content: any) => {
+        const dataArray = content && content.content ? content.content : [];
         if (Array.isArray(dataArray)) {
           return dataArray;
         } else {
-          console.error('Los datos de resultados no son un array:', data);
+          console.error('Los datos de resultados no son un array:', content);
           return [];
         }
       }),
@@ -123,7 +123,6 @@ export class FavouriteListService {
         console.log('Resultados obtenidos para el equipo con ID:', teamId, results);
         return results; 
       }),
-      retry(3)
     );
   }
 
@@ -133,15 +132,15 @@ export class FavouriteListService {
   }
 
   private fetchPlayersPage(teamId: number, page: number): Observable<Player[]> {
-    const playersUrl = `${this.apiUrl}/players?team_ids[]=${teamId}&per_page=100&page=${page}`;
+    const playersUrl = `${this.apiUrl}/players?id=${teamId}`;
   
     return this.http.get(playersUrl, { headers: this.headers }).pipe(
-      map((data: any) => {
-        const dataArray = data && data.data ? data.data : [];
+      map((content: any) => {
+        const dataArray = content && content.content ? content.content : [];
         if (Array.isArray(dataArray)) {
           return dataArray;
         } else {
-          console.error('Los datos de jugadores no son un array:', data);
+          console.error('Los datos de jugadores no son un array:', content);
           return [];
         }
       }),
@@ -173,13 +172,39 @@ export class FavouriteListService {
       return of(cachedPlayers);
     }
   
+    const playersUrl = `${this.apiUrl}/players?teamId=${teamId}`
+  
+    return this.http.get<Player[]>(playersUrl, { headers: this.headers }).pipe( 
+      map((content: any) => {
+        const dataArray = content && content.content ? content.content : [];
+        if (Array.isArray(dataArray)) {
+          return dataArray;
+        } else {
+          console.error('Los datos de jugadores no son un array:', content);
+          return [];
+        }
+      }),
+      catchError((error) => {
+        console.error('Error al obtener jugadores:', error);
+        return of([] as Player[]);
+      }),
+      map((players: Player[]) => {
+        this.playersCache[teamId] = players;
+        console.log('Jugadores obtenidos para el equipo con ID:', teamId, players);
+        return players; 
+      }),
+      retry(3)
+    );
+
+
+    /*
     return this.fetchAllPlayersRecursive(teamId, 1, []).pipe(
       map((players: Player[]) => {
         this.playersCache[teamId] = players;
         return players.filter((player: Player) => player.team.id === teamId);
       }),
       retry(3) 
-    );
+    );*/
   }
 }
 

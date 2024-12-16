@@ -29,7 +29,7 @@ export class PageNotFoundComponent {
     let h3 = document.querySelector("h3") as HTMLElement;
     h3.innerHTML = "ARRIBA LAS MANOS HACKER!!!";
 
-    this.sound.play();
+
   }
 
   resetImage(){

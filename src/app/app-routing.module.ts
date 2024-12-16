@@ -13,6 +13,7 @@ import { FavouriteListComponent } from './Componentes/favourite-list-team/favour
 import { FavouriteListPlayerComponent } from './Componentes/favourite-list-player/favourite-list-player.component';
 import { AuthGuard } from './auth.guard';
 import { DetalleTeamComponent } from './Componentes/detalle-team/detalle-team.component';
+import { FavouriteListResultComponent } from './Componentes/favourite-list-result/favourite-list-result.component';
 
 const routes: Routes = [
   { path: 'sections', component: SeccionesComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'registerLogin/register', component: RegisterComponent },
   { path: 'favourite-list', component: FavouriteListComponent, canActivate: [AuthGuard] },
   { path: 'favourite-list-pla', component: FavouriteListPlayerComponent, canActivate: [AuthGuard] },
+  { path: 'favourite-list-result', component: FavouriteListResultComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/sections', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ]

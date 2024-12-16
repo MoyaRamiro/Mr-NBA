@@ -7,57 +7,51 @@ import { FavouriteListService } from 'src/app/Servicios/FavouriteListTeam/favour
 @Component({
   selector: 'app-detalle-team',
   templateUrl: './detalle-team.component.html',
-  styleUrls: ['./detalle-team.component.css']
+  styleUrls: ['./detalle-team.component.css'],
 })
 export class DetalleTeamComponent {
-  public id: number = -1;
-  public team : TeamDetalle = {} as TeamDetalle;
+  public id: any;
+  public team: TeamDetalle = {} as TeamDetalle;
 
-  constructor(private route: ActivatedRoute, private service : TeamsService, private router : Router, private favoriteListService : FavouriteListService){}
+  constructor(
+    private route: ActivatedRoute,
+    private service: TeamsService,
+    private router: Router,
+    private favoriteListService: FavouriteListService
+  ) {}
 
   ngOnInit() {
-    this.id = +this.route.snapshot.paramMap.get('id')!;
-
+    this.id = this.route.snapshot.paramMap.get('id')!;
     try {
       this.service.getTeam(this.id).subscribe((response: any) => {
         if (response) {
           this.team = response;
-          console.log("EQUIPOOOOOOOOOO")
+          console.log('EQUIPOOOOOOOOOO');
           console.log(this.team);
         } else {
           console.error('No se encontró ningún equipo con el ID especificado.');
         }
       });
     } catch (error) {
-      console.log("Error al traer el equipo " + error);
+      console.log('Error al traer el equipo ' + error);
     }
-  
   }
 
-  verifyFavourite(team : TeamDetalle): boolean {
-
+  verifyFavourite(team: TeamDetalle): boolean {
     const favoriteTeams = this.favoriteListService.getData();
 
-    if(favoriteTeams){
-      return favoriteTeams.some(favoriteTeam => favoriteTeam.id === team.id);
+    if (favoriteTeams) {
+      return favoriteTeams.some((favoriteTeam) => favoriteTeam.id === team.id);
     }
-
-    
 
     return false;
   }
 
-  loadImage(){
-    if(this.id < 31){
-      return `../../../assets/teams/${this.id}.webp`
-    } else {
-      return `../../../assets/teams/100.webp`
-    }
-    
+  loadImage() {
+    return `../../../assets/teams/${this.id}.webp`;
   }
 
   goBack() {
     window.history.back();
   }
-
 }

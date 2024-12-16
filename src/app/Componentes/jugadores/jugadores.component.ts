@@ -45,7 +45,7 @@ export class JugadoresComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAllPlayers(1);
+    this.getAllPlayers(0);
 
     const data = this.favoriteListService.getData();
 
@@ -55,6 +55,7 @@ export class JugadoresComponent implements OnInit {
       this.favoriteList = [];
     }
 
+    console.log(this.currentPage)
   }
 
   paginatePlayers(players: Player[], page: number): Player[] {
@@ -66,30 +67,27 @@ export class JugadoresComponent implements OnInit {
   previousPage() {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.getAllPlayers(this.currentPage*25);
-      this.updatePageVisibility();
+      this.getAllPlayers(this.currentPage)
     }
   }
   
   nextPage() {
-    if (this.currentPage * this.itemsPerPage < 25000) {
+    if (this.currentPage < 18) {
       this.currentPage++;
-      this.getAllPlayers(this.currentPage*25);
-      this.updatePageVisibility();
+      this.getAllPlayers(this.currentPage)
     }
   }
 
   updatePageVisibility() { ///comprueba que sea la primer o ultima pagina
     this.isFirstPage = this.currentPage === 0;
-    this.isLastPage = this.currentPage * this.itemsPerPage >= 30*this.playersList.length;
+    this.isLastPage = this.currentPage === 17
   }
 
-  getAllPlayers(cursor: number = 1) {
+  getAllPlayers(cursor: number = 0) {
     this.JugadoresService.getAllPlayers(cursor).subscribe((response: any) => {
-      this.playersList = response.data || [];
+      this.playersList = response.content || [];
 
       console.log(this.playersList);
-      console.log(cursor);
       this.updatePageVisibility();
     });
   }
@@ -117,7 +115,7 @@ export class JugadoresComponent implements OnInit {
 
   getPlayersForSearch(name : string) {
     return this.JugadoresService.getPlayersForName(name).subscribe((p: Player[] | any) => {
-      this.playersList = p.data; 
+      this.playersList = p.content; 
       this.isFirstPage = true;
       this.isLastPage = true;
     })
@@ -141,7 +139,7 @@ export class JugadoresComponent implements OnInit {
   const searchText = (event.target as HTMLInputElement).value.toLowerCase();
 
   if (searchText.trim() === '') {
-    this.getAllPlayers(1);
+    this.getAllPlayers(0);
     this.isFirstPage = true;
     this.isLastPage = false;
     return;
@@ -170,28 +168,30 @@ export class JugadoresComponent implements OnInit {
 
   isKnownPlayer(player: Player): boolean {
    
-    const knownPlayerIds = [237 , 115, 145, 15, 246, 132, 434, 140, 79, 666969, 228, 192];  //lebron, curry, embiid, anteto, jokic, dondic, tautin, durant, buttler , wilson zion, kail irving, harden
-     return knownPlayerIds.some(Element=> player.id === Element);
+    const knownPlayerIds = ["34316462-3932-3061-2d62-3930302d3131" , "34316461-6664-3538-2d62-3930302d3131", "34316463-3161-3639-2d62-3930302d3131",
+       "34316462-6536-6231-2d62-3930302d3131", "34316461-6562-6639-2d62-3930302d3131", "34316461-6466-6464-2d62-3930302d3131", 
+       "34316461-6236-6339-2d62-3930302d3131", "34316463-3233-6136-2d62-3930302d3131", "34316462-6131-6431-2d62-3930302d3131", 
+       "34316462-6661-3833-2d62-3930302d3131", "34316461-6530-3861-2d62-3930302d3131", "34316462-3838-6139-2d62-3930302d3131", "34316464-3333-6133-2d62-3930302d3131"];  //lebron, curry, embiid, anteto, jokic, dondic, tautin, durant, buttler , wilson zion, kail irving, harden
+     return knownPlayerIds.some(Element=> player.id.toString() === Element);
   }
 
  
   getPlayerImage(player: Player): string {
   
-    const playerImageMap: { [id: number]: string } = {
-      237: '../../../assets/players/lebron.webp',
-      115: '../../../assets/players/curry.webp',
-      145: '../../../assets/players/embiid.webp',
-      15: '../../../assets/players/anteto.webp',
-      246: '../../../assets/players/jokic.webp',
-      132: '../../../assets/players/doncic.webp',
-      434: '../../../assets/players/tatum.webp',
-      140: '../../../assets/players/durant.webp',
-      79: '../../../assets/players/butlerEmo.webp',
-      666969: '../../../assets/players/zion.webp',
-      228: '../../../assets/players/irving.webp',
-      192: '../../../assets/players/harden.webp',
-
-  
+    const playerImageMap: { [id: string]: string } = {
+      "34316462-3932-3061-2d62-3930302d3131": '../../../assets/players/lebron.webp',
+      "34316461-6664-3538-2d62-3930302d3131": '../../../assets/players/curry.webp',
+      "34316463-3161-3639-2d62-3930302d3131": '../../../assets/players/embiid.webp',
+      "34316462-6536-6231-2d62-3930302d3131": '../../../assets/players/anteto.webp',
+      "34316461-6562-6639-2d62-3930302d3131": '../../../assets/players/jokic.webp',
+      "34316461-6466-6464-2d62-3930302d3131": '../../../assets/players/doncic.webp',
+      "34316461-6236-6339-2d62-3930302d3131": '../../../assets/players/tatum.webp',
+      "34316463-3233-6136-2d62-3930302d3131": '../../../assets/players/durant.webp',
+      "34316462-6131-6431-2d62-3930302d3131": '../../../assets/players/butlerEmo.webp',
+      "34316462-6661-3833-2d62-3930302d3131": '../../../assets/players/zion.webp',
+      "34316461-6530-3861-2d62-3930302d3131": '../../../assets/players/irving.webp',
+      "34316462-3838-6139-2d62-3930302d3131": '../../../assets/players/harden.webp',
+      "34316464-3333-6133-2d62-3930302d3131": '../../../assets/players/kris.webp',
     };
 
   

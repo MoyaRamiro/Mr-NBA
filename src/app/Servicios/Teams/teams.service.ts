@@ -7,7 +7,7 @@ import { Team } from 'src/app/types/Teams';
 })
 export class TeamsService {
 
-  private readonly apiUrl = 'http://localhost:3000/teams';
+  private readonly apiUrl = 'http://localhost:4000/teams';
   private readonly apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
 
   private allTeams: Team[] = [];
@@ -53,16 +53,13 @@ export class TeamsService {
   }
 
   getAllTeams(i: Number) {
-    const url = `${this.apiUrl}`;
-    console.log("asdas")
-    console.log(url)
-    console.log(this.httpClient.get(this.apiUrl))
     return this.httpClient.get(this.apiUrl);
   }
 
-  getTeam(id: number) {
+  getTeam(id: any) {
     const url = `${this.apiUrl}/${id}`;
     return this.httpClient.get(url);
   }
+  
 }
 

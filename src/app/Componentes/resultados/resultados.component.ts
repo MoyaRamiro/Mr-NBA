@@ -8,26 +8,30 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-resultados',
   templateUrl: './resultados.component.html',
-  styleUrls: ['./resultados.component.css']
+  styleUrls: ['./resultados.component.css'],
 })
 export class ResultadosComponent implements OnInit {
-
   public GamesList: Game[] = [];
   public select: Game | null = null;
   public atribute = false;
-  public count = 1;
   public allGamesList: Game[] = [];
-  public currentPage: number = 1;
+  public currentPage: number = 0;
   public itemsPerPage: number = 25;
   public isFirstPage: boolean = true;
   public isLastPage: boolean = false;
   private submitClick: boolean = false;
-  private submitTeam: string = "";
+  private submitTeam: string = '';
 
-  constructor(private JuegosService: GamesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private JuegosService: GamesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getAllGames();
+    this.getAllGames(0);
+    console.log('juegos');
+    console.log(this.GamesList);
   }
 
   paginateGames(games: Game[], page: number): Game[] {
@@ -35,59 +39,52 @@ export class ResultadosComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     return games.slice(startIndex, endIndex);
   }
-  
-  getAllGames(cursor: number = 1) {
+
+  getAllGames(cursor: number = 0) {
     this.JuegosService.getAllGames(cursor).subscribe((response: any) => {
-      const newGames = response.data || [];
-      
-      console.log(response.data)
+      const newGames = response.content || [];
+
+      console.log(newGames);
 
       this.allGamesList = newGames;
-  
+
       this.allGamesList.sort((a, b) => {
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
         return dateB - dateA;
-        
       });
-  
-      this.GamesList = this.paginateGames(this.allGamesList, this.currentPage);
-  
 
+      //this.GamesList = this.paginateGames(this.allGamesList, this.currentPage);
+      this.GamesList = this.allGamesList;
+      console.log(this.GamesList);
 
       this.updatePageVisibility();
     });
   }
-  
+
   previousPage() {
-    if (this.currentPage > 1) {
+    if (this.currentPage > 0) {
       this.currentPage--;
-      this.GamesList = this.paginateGames(this.allGamesList, this.currentPage);
-  
-      this.count = this.currentPage;
-      this.updatePageVisibility();
+      this.getAllGames(this.currentPage);
     }
   }
-  
+
   nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.allGamesList.length) {
+    if (this.currentPage < 5) {
       this.currentPage++;
-      this.GamesList = this.paginateGames(this.allGamesList, this.currentPage);
-  
-      this.count = this.currentPage;
-      this.updatePageVisibility();
+      this.getAllGames(this.currentPage);
     }
   }
-  
+
   updatePageVisibility() {
-    this.isFirstPage = this.currentPage === 1;
-    this.isLastPage = this.currentPage * this.itemsPerPage >= this.allGamesList.length;
+    this.isFirstPage = this.currentPage === 0;
+    this.isLastPage = this.currentPage === 4;
   }
-  
-  async getGamesForSearch(name: string) {
+
+  /*async getGamesForSearch(name: string) {
     const gamesData = await this.JuegosService.getGamesOfTeam(name);
     this.GamesList = gamesData;
-  
+
     if (gamesData && gamesData.data) {
       console.log(gamesData.data);
       const filteredGames = this.filterGames(gamesData.data);
@@ -97,16 +94,15 @@ export class ResultadosComponent implements OnInit {
       this.GamesList = [];
       console.log('No se recibió datos válidos de la solicitud.');
     }
-  }
-  
+  }*/
 
   goToTeam(id: number) {
     this.router.navigate(['/team', id]);
   }
 
   filterGames(array: Game[]) {
-    return array.filter(game =>
-      Object.values(game).some(value => value !== null)
+    return array.filter((game) =>
+      Object.values(game).some((value) => value !== null)
     );
   }
 
@@ -114,21 +110,32 @@ export class ResultadosComponent implements OnInit {
     const searchText = (event.target as HTMLInputElement).value.toLowerCase();
 
     if (searchText.trim() === '') {
-      this.getAllGames(1);
+      this.getAllGames(0);
       this.isLastPage = false;
       this.isFirstPage = true;
     } else {
-      this.isFirstPage = true;
-      this.isLastPage = true;
+      this.getResultsForSearch(searchText.trim());
     }
   }
 
+  getResultsForSearch(name: string) {
+    return this.JuegosService.getGamesForName(name).subscribe(
+      (p: Game[] | any) => {
+        this.GamesList = p.content;
+        this.isFirstPage = true;
+        this.isLastPage = true;
+      }
+    );
+  }
+
   submitResults() {
-    const searchText = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const searchText = (
+      document.getElementById('search-input') as HTMLInputElement
+    ).value.toLowerCase();
 
     console.log(searchText);
 
-    this.getGamesForSearch(searchText);
+    this.getResultsForSearch(searchText);
     this.isFirstPage = true;
     this.isLastPage = true;
   }
@@ -150,18 +157,8 @@ export class ResultadosComponent implements OnInit {
       return homeScore + ' ' + visitorScore;
     }
   }
-  
-  loadImage(id: number){
-    if (id < 31) {
-      return `../../../assets/teams/${id}.webp`
-    } else {
-      return `../../../assets/teams/100.webp`
-    }
+
+  loadImage(id: number) {
+    return `../../../assets/teams/${id}.webp`;
   }
 }
-
-
-
-
-
-
