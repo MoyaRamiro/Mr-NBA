@@ -13,7 +13,7 @@ import { LoginRegisterService } from '../LoginRegister/login-register.service';
 export class FavouriteListService {
 
   private favoriteList: Team[] = [];
-  private apiUrl = 'http://localhost:4000';
+  private apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com';
   private apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
 
   private headers: HttpHeaders = new HttpHeaders({

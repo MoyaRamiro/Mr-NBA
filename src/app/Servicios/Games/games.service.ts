@@ -7,7 +7,7 @@ import { TeamsService } from '../Teams/teams.service';
   providedIn: 'root',
 })
 export class GamesService {
-  private readonly apiUrl = 'http://localhost:4000/games';
+  private readonly apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com/games';
   private readonly apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
 
   private games: Game[] = [];

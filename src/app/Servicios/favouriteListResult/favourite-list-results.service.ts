@@ -7,7 +7,7 @@ import { Game } from 'src/app/types/Games';
   providedIn: 'root',
 })
 export class FavouriteListResultsService {
-  private apiUrl = 'http://localhost:4000/games';
+  private apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com/games';
   private recentResultsCache: { [teamId: number]: Game[] } = {};
 
   constructor(private http: HttpClient) {}
