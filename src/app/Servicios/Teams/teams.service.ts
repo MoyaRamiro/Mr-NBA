@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Team } from 'src/app/types/Teams';
 
 @Injectable({
@@ -7,8 +7,8 @@ import { Team } from 'src/app/types/Teams';
 })
 export class TeamsService {
 
-  private readonly apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com/teams';
-  private readonly apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
+  private readonly apiUrl = 'https://api.balldontlie.io/v1';
+  private readonly apiKey = 'c90e56f5-b8a8-454c-bdd9-d9dc13b3ea33';
 
   private allTeams: Team[] = [];
 
@@ -53,13 +53,18 @@ export class TeamsService {
   }
 
   getAllTeams(i: Number) {
-    return this.httpClient.get(this.apiUrl);
+    return this.httpClient.get(`${this.apiUrl}/teams?page=${i}`, { headers: this.getHeaders() });
   }
 
   getTeam(id: any) {
-    const url = `${this.apiUrl}/${id}`;
-    return this.httpClient.get(url);
+    const url = `${this.apiUrl}/teams/${id}`;
+    return this.httpClient.get(url, { headers: this.getHeaders() });
   }
   
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders().set('Authorization', ` ${this.apiKey}`);
+  }
+  
+
 }
 

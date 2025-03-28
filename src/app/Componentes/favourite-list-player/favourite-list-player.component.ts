@@ -58,57 +58,34 @@ export class FavouriteListPlayerComponent {
   }
 
   isKnownPlayer(player: Player): boolean {
-    const knownPlayerIds = [
-      '34316462-3932-3061-2d62-3930302d3131',
-      '34316461-6664-3538-2d62-3930302d3131',
-      '34316463-3161-3639-2d62-3930302d3131',
-      '34316462-6536-6231-2d62-3930302d3131',
-      '34316461-6562-6639-2d62-3930302d3131',
-      '34316461-6466-6464-2d62-3930302d3131',
-      '34316461-6236-6339-2d62-3930302d3131',
-      '34316463-3233-6136-2d62-3930302d3131',
-      '34316462-6131-6431-2d62-3930302d3131',
-      '34316462-6661-3833-2d62-3930302d3131',
-      '34316461-6530-3861-2d62-3930302d3131',
-      '34316462-3838-6139-2d62-3930302d3131',
-      '34316464-3333-6133-2d62-3930302d3131',
-    ]; //lebron, curry, embiid, anteto, jokic, dondic, tautin, durant, buttler , wilson zion, kail irving, harden
-    return knownPlayerIds.some((Element) => player.id.toString() === Element);
+   
+    const knownPlayerIds = ["237" , "115", "145",
+       "15", "246", "132", 
+       "434", "140", "79", 
+       "666969", "228", "192", "139"];  //lebron, curry, embiid, anteto, jokic, dondic, tautin, durant, buttler , wilson zion, kail irving, harden
+     return knownPlayerIds.some(Element=> player.id.toString() === Element);
   }
 
   getPlayerImage(player: Player): string {
+  
     const playerImageMap: { [id: string]: string } = {
-      '34316462-3932-3061-2d62-3930302d3131':
-        '../../../assets/players/lebron.webp',
-      '34316461-6664-3538-2d62-3930302d3131':
-        '../../../assets/players/curry.webp',
-      '34316463-3161-3639-2d62-3930302d3131':
-        '../../../assets/players/embiid.webp',
-      '34316462-6536-6231-2d62-3930302d3131':
-        '../../../assets/players/anteto.webp',
-      '34316461-6562-6639-2d62-3930302d3131':
-        '../../../assets/players/jokic.webp',
-      '34316461-6466-6464-2d62-3930302d3131':
-        '../../../assets/players/doncic.webp',
-      '34316461-6236-6339-2d62-3930302d3131':
-        '../../../assets/players/tatum.webp',
-      '34316463-3233-6136-2d62-3930302d3131':
-        '../../../assets/players/durant.webp',
-      '34316462-6131-6431-2d62-3930302d3131':
-        '../../../assets/players/butlerEmo.webp',
-      '34316462-6661-3833-2d62-3930302d3131':
-        '../../../assets/players/zion.webp',
-      '34316461-6530-3861-2d62-3930302d3131':
-        '../../../assets/players/irving.webp',
-      '34316462-3838-6139-2d62-3930302d3131':
-        '../../../assets/players/harden.webp',
-      '34316464-3333-6133-2d62-3930302d3131':
-        '../../../assets/players/kris.webp',
+      "237": '../../../assets/players/lebron.webp',
+      "115": '../../../assets/players/curry.webp',
+      "145": '../../../assets/players/embiid.webp',
+      "15": '../../../assets/players/anteto.webp',
+      "246": '../../../assets/players/jokic.webp',
+      "132": '../../../assets/players/doncic.webp',
+      "434": '../../../assets/players/tatum.webp',
+      "140": '../../../assets/players/durant.webp',
+      "79": '../../../assets/players/butlerEmo.webp',
+      "666969": '../../../assets/players/zion.webp',
+      "228": '../../../assets/players/irving.webp',
+      "192": '../../../assets/players/harden.webp',
+      "139": '../../../assets/players/kris.webp',
     };
 
-    return this.isKnownPlayer(player)
-      ? playerImageMap[player.id]
-      : '../../../assets/players/imagenJugadores.webp';
+  
+    return this.isKnownPlayer(player) ? playerImageMap[player.id] : '../../../assets/players/imagenJugadores.webp';
   }
 
   addRemovePlayerList(player: Player) {

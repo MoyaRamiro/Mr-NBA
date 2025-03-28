@@ -7,8 +7,8 @@ import { TeamsService } from '../Teams/teams.service';
   providedIn: 'root',
 })
 export class GamesService {
-  private readonly apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com/games';
-  private readonly apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
+  private readonly apiUrl = 'https://api.balldontlie.io/v1/games';
+  private readonly apiKey = 'c90e56f5-b8a8-454c-bdd9-d9dc13b3ea33';
 
   private games: Game[] = [];
 
@@ -35,11 +35,11 @@ export class GamesService {
       .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
 
     //let url = `${this.apiUrl}?seasons[]=2024&per_page=100&sort=date`;
-    const url = `${this.apiUrl}?page=${cursor}`;
+    const url = `${this.apiUrl}?cursor=${cursor}`;
 
     const headers = { Authorization: `${this.apiKey}` };
 
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, { headers});
   }
 
   getGamesForName(name: string) {

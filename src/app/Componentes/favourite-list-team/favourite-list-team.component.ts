@@ -40,6 +40,10 @@ export class FavouriteListComponent implements OnInit {
   }
 
   loadImage(team: Team) {
+    if (team.id > 30) {
+      return `../../../assets/teams/100.webp`;
+    }
+
     return `../../../assets/teams/${team.id}.webp`;
   }
 

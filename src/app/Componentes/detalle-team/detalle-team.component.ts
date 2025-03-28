@@ -48,6 +48,10 @@ export class DetalleTeamComponent {
   }
 
   loadImage() {
+    if (this.id > 30) {
+      return `../../../assets/teams/100.webp`;
+    }
+
     return `../../../assets/teams/${this.id}.webp`;
   }
 

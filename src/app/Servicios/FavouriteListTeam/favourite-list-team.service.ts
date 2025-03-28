@@ -13,8 +13,8 @@ import { LoginRegisterService } from '../LoginRegister/login-register.service';
 export class FavouriteListService {
 
   private favoriteList: Team[] = [];
-  private apiUrl = 'https://api-rest-mr-nba-c1oq.onrender.com';
-  private apiKey = '3dce770b-c605-4400-9d66-5c63b8cbaf97';
+  private apiUrl = 'https://api.balldontlie.io/v1';
+  private apiKey = 'c90e56f5-b8a8-454c-bdd9-d9dc13b3ea33';
 
   private headers: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.apiKey}`
@@ -106,7 +106,7 @@ export class FavouriteListService {
   
     return this.http.get<Game[]>(resultsUrl, { headers: this.headers }).pipe( 
       map((content: any) => {
-        const dataArray = content && content.content ? content.content : [];
+        const dataArray = content && content.data ? content.data : [];
         if (Array.isArray(dataArray)) {
           return dataArray;
         } else {
@@ -136,7 +136,7 @@ export class FavouriteListService {
   
     return this.http.get(playersUrl, { headers: this.headers }).pipe(
       map((content: any) => {
-        const dataArray = content && content.content ? content.content : [];
+        const dataArray = content && content.data ? content.data : [];
         if (Array.isArray(dataArray)) {
           return dataArray;
         } else {
@@ -176,7 +176,7 @@ export class FavouriteListService {
   
     return this.http.get<Player[]>(playersUrl, { headers: this.headers }).pipe( 
       map((content: any) => {
-        const dataArray = content && content.content ? content.content : [];
+        const dataArray = content && content.data ? content.data : [];
         if (Array.isArray(dataArray)) {
           return dataArray;
         } else {

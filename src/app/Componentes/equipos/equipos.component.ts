@@ -55,7 +55,7 @@ export class EquiposComponent implements OnInit {
   getAllTeams() {
     this.EquiposService.getAllTeams(1).subscribe(
       (data: any) => {
-        this.teamsList = data; // Asigna los datos de respuesta a la variable 'teams'
+        this.teamsList = data.data; // Asigna los datos de respuesta a la variable 'teams'
         console.log('Teams:', this.teamsList);
       },
       (error) => {
@@ -121,6 +121,10 @@ export class EquiposComponent implements OnInit {
   }
 
   loadImage(team: Team) {
+    if (team.id > 30) {
+      return `../../../assets/teams/100.webp`;
+    }
+
     return `../../../assets/teams/${team.id}.webp`;
   }
 

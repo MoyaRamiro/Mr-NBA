@@ -42,7 +42,7 @@ export class ResultadosComponent implements OnInit {
 
   getAllGames(cursor: number = 0) {
     this.JuegosService.getAllGames(cursor).subscribe((response: any) => {
-      const newGames = response.content || [];
+      const newGames = response.data || [];
 
       console.log(newGames);
 
@@ -121,7 +121,7 @@ export class ResultadosComponent implements OnInit {
   getResultsForSearch(name: string) {
     return this.JuegosService.getGamesForName(name).subscribe(
       (p: Game[] | any) => {
-        this.GamesList = p.content;
+        this.GamesList = p.data;
         this.isFirstPage = true;
         this.isLastPage = true;
       }
@@ -159,6 +159,12 @@ export class ResultadosComponent implements OnInit {
   }
 
   loadImage(id: number) {
+    if (id > 30) {
+      return `../../../assets/teams/100.webp`;
+    }
+
     return `../../../assets/teams/${id}.webp`;
   }
+
+
 }
